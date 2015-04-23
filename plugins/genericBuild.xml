@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<project name="SerialTerminal" default="build">
+<project name="UECIDE Plugin" default="build">
 
 
     <taskdef resource="net/sf/antcontrib/antcontrib.properties">
         <classpath>
-            <pathelement location="/usr/share/ant/lib/ant-contrib.jar"/>
+            <pathelement location="../lib/ant-contrib.jar"/>
         </classpath>
     </taskdef>
 
@@ -109,11 +109,12 @@
             <zipgroupfileset dir="zipfix" includes="*.jar" />
             <manifest>
                 <attribute name="Version" value="${version}" />
-                <attribute name="Minimum-Version" value="0.8.6a" />
+                <attribute name="Minimum-Version" value="${version.minimum}" />
                 <attribute name="Compiled" value="${TODAY}" />
                 <attribute name="Author" value="Majenko Technologies" />
-                <attribute name="Main-Class" value="uecide.plugin.${project}"/>
+                <attribute name="Main-Class" value="org.uecide.plugin.${project}" />
                 <attribute name="Shortcut" value="-" />
+                <attribute name="Description" value="${description}" />
             </manifest>
         </jar>
     </target>
@@ -123,12 +124,19 @@
     </target>
 
     <target name="bundle" depends="build" if="bundle">
-        <copy file="${project}.jar" todir="${uecide.path}/resources/uecide/app/bundles/plugins/" />
+        <copy file="${project}.jar" todir="${uecide.path}/resources/org/uecide/bundles/plugins/" />
     </target>
 
     <target name="test" depends="install">
         <exec executable="${uecide.path}/uecide.jar">
             <arg value="--exceptions" />
+        </exec>
+    </target>
+
+    <target name="publish" depends="build">
+        <exec executable="scp">
+            <arg value="${project}.jar" />
+            <arg value="autobuild:/var/www/uecide/plugins-088/plugins" />
         </exec>
     </target>
 

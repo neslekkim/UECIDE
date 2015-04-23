@@ -13,8 +13,8 @@
     ShowInstDetails "nevershow" 
     ShowUninstDetails "nevershow"
 
-    !define MUI_ICON "../../dist/windows/application.ico"
-    !define MUI_UNICON "../../dist/windows/application.ico"
+    !define MUI_ICON "../../dist/windows/UECIDE.ico"
+    !define MUI_UNICON "../../dist/windows/UECIDE.ico"
 
     InstallDir "$PROGRAMFILES\${PUBLISHER}\${PRODUCTCAP}"
 
@@ -40,7 +40,7 @@ Section "Install"
     SetOutPath "$INSTDIR"
     File /r "uecide-${VERSION}/*"
 
-    CreateShortCut "$DESKTOP\${PRODUCTCAP}.lnk" "$INSTDIR\${PRODUCT}.exe" ""
+    CreateShortCut "$DESKTOP\${PRODUCTCAP}.lnk" "$INSTDIR\${PRODUCT}.exe" "" "$INSTDIR\${PRODUCT}.exe" 0
  
     CreateDirectory "$SMPROGRAMS\${PUBLISHER}"
     CreateDirectory "$SMPROGRAMS\${PUBLISHER}\${PRODUCTCAP}"
